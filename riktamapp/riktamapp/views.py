@@ -24,12 +24,14 @@ def login(request):
     flag=0
     k=0
     for r in rows:
-        if(username==r[1] and password==r[4]):
+        if(username==r[0] and password==r[3]):
             flag=1
-            k=r[1]
+            k=r[0]
             break
     if(flag==1):
         return redirect('success',session=k)
+    else:
+        print("invalid")
 def home(request,session):
     l=session
     return redirect('success',session=l)
@@ -42,29 +44,37 @@ def home(request,session):
 
 def login1(request):
     return render(request,'login.html')
-def register1(request):
-    return render(request,'register.html')
     
 def register(request):
+    if request.method == "POST":
     
-    fname=request.POST['first_name']
-    lname=request.POST['last_name']
-    email=request.POST['email']
-    password=request.POST['password']
-    cpassword=request.POST['confirm_password']
-    location=request.POST['location']
-    mydb = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="",
-            database="internet"
-            )
 
-    mycursor = mydb.cursor()
-    sql = "INSERT INTO register (fname,lname,email,password,location) VALUES (%s, %s,%s,%s,%s)"
-    val = (fname,lname,email,password,location)
-    mycursor.execute(sql, val)
-    return redirect('login1')
+    
+        fname=request.POST['f']
+        lname=request.POST['last_name']
+        email=request.POST['email']
+        password=request.POST['password']
+        cpassword=request.POST['confirm_password']
+        location=request.POST['location']
+        mydb = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="",
+                database="internet"
+                )
+
+        mycursor = mydb.cursor()
+        print(fname,lname,email)
+        sql = "INSERT INTO register (fname,lname,email,password,location) VALUES (%s, %s,%s,%s,%s)"
+        val = (fname,lname,email,password,location)
+        mycursor.execute(sql, val)
+        mydb.commit()
+        mydb.close()
+
+    
+        return render(request,'login.html')
+    else:
+        return render(request,'register.html')
 def hotel(request): 
     return render(request,'login.html')
 def my(request,session):
