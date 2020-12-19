@@ -5,7 +5,7 @@
     <title>Hotel_image</title> 
 </head> 
 <body> 
-    <form method = "post" enctype="multipart/form-data" action='/image_upload'> 
+    <form method = "post" enctype="multipart/form-data" action='/image_upload/{{session.0}}'> 
         {% csrf_token %} 
         {{ form.as_p }} 
         <button type="submit">Upload</button> 

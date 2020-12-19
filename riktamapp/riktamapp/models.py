@@ -1,7 +1,14 @@
 from django.db import models 
 class Hotel(models.Model): 
-    name = models.CharField(max_length=50) 
+    username=models.CharField(max_length=50)
+
+    location = models.CharField(max_length=50) 
+
+
+
     hotel_Main_Img = models.ImageField(upload_to='images/')
+
+
 class GetImage(models.Model):   
     title = models.CharField(max_length=100)
     img = models.ImageField(upload_to="media")

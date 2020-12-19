@@ -23,14 +23,19 @@ from . import views
 
 
 
-urlpatterns = [ 
-    path('',views.hotel_image_view,name='home'),
-    path('image_upload',views.hotel_image_view, name = 'image_upload'), 
-    path('success', views.success, name = 'success'), 
+urlpatterns = [
+   
+
+    path('',views.login1,name='home'),
+    path('register1',views.register1,name="register1"),
+    path('register',views.register,name="register"),
+    
+    path('image_upload/<str:session>',views.hotel_image_view, name = 'image_upload'), 
+    path('success/<str:session>', views.success, name = 'success'), 
+    path('home/<str:session>', views.home), 
+    path('my/<str:session>',views.my), 
 ]
-if settings.DEBUG:
-        urlpatterns += static(settings.MEDIA_URL,
-                              document_root=settings.MEDIA_ROOT)
+
 
 
 
