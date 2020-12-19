@@ -7,6 +7,7 @@ class Hotel(models.Model):
 
 
     hotel_Main_Img = models.ImageField(upload_to='images/')
+    count= models.IntegerField()
 
 
 class GetImage(models.Model):   

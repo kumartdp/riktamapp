@@ -17,7 +17,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,re_path
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from . import views
 
@@ -38,7 +40,17 @@ urlpatterns = [
     path('success/<str:session>', views.success, name = 'success'), 
     path('home/<str:session>', views.home), 
     path('my/<str:session>',views.my), 
+    path('success/image_upload/image_upload/success/<str:session>',views.hotel_image_view, name = 'image_upload'),
+    path('delete/<int:id1>',views.delete),
+    path('edit/<int:id1>/<str:session>',views.edit),
+    path('upvote/<int:id1>/<str:session>',views.upvote),
+    
+    
+
 ]
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 
 

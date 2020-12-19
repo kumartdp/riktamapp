@@ -8,25 +8,62 @@
 </head>
 <body>
 <div class="container">
+    <a href="/my/{{session.0}}">my posts</a>
+    <h1>
+        
+        </h1>
+<a href="/image_upload/{{session.0}}">add issue</a>	
 <table class="table table-striped">
     <thead>
       <tr>
-		<th>Title</th>
-		<th>Image</th>
+		<th>location</th>
+        <th>Image</th>
+        <th>
+            edit
+        </th>
+        <th>
+            delete
+        </th>
+        <th>
+            upvote
+
+        </th>
+        <th>
+            votes
+
+        </th>
       </tr>
     </thead>
     <tbody>
 	{% for img in images %}  
       <tr>
-        <td>{{img.name}}</td>
+         
+        <td>{{img.location}}</td>
+        {% with name=img.hotel_Main_Img %}
+
        
-        <td><img src="media/images/sign.jpg" width="120"/></td>
+        <td><img src="/media/jpg;base64,{{name}}" alt="text" width="100"></td>
+        <td>
+            <a href="/edit/{{img.id}}/{{session.0}}" class="btn btn-info">edit</a>
+        </td>
+        <td>
+            <a href="/delete/{{img.id}}" class="btn btn-danger">delete</a>
+        </td>
+        <td>
+            <a href="/upvote/{{img.id}}/{{session.0}}" class="btn btn-success">upvote</a>
+            
+                
+            
+        </td>
+        <td>
+        <h1> {{img.count}} </h1>
+        </td>
       </tr>
+      {% endwith %}
 	  {% endfor %} 
 	</tbody>
 </table>
-<a href="/my/{{session.0}}/">my posts</a>
-<a href="/image_upload/{{session.0}}/">add issue</a>	
+
 </div>
 </body>
 </html>
