@@ -11,6 +11,7 @@ def login(request):
     
     username=request.POST['username']
     password=request.POST['password']
+    t=request.GET["type"]
     mydb = mysql.connector.connect(
             host="localhost",
             user="root",
@@ -29,14 +30,33 @@ def login(request):
             k=r[0]
             break
     if(flag==1):
+        
+
         dup=k
         return redirect('/success'+'/'+k)
+        
+
+        
     else:
-        print("invalid")
+
+        return HttpResponse("invalid")
+    else:
+        if(t=="admin"):
+
+            if(username=="admin" and password=="123"):
+                return redirect('/successadmin')
+            else:
+                return HttpResponse("invalid")
+        return HttpResponse("invalid")
 
 def home(request,session):
     l=session
     return redirect('success',session=l)
+def successadmin(request):
+    allimages = Hotel.objects.filter(status="open")
+    return render(request, 'adminshow.html',context={'images':allimages})
+
+
 
 
         
@@ -58,6 +78,7 @@ def register(request):
         password=request.POST['password']
         cpassword=request.POST['confirm_password']
         location=request.POST['location']
+      
         mydb = mysql.connector.connect(
                 host="localhost",
                 user="root",
@@ -148,6 +169,58 @@ def upvote(request,id1,session):
     l1.append(session)
     
     return render(request, 'show.html',context={'images':allimages,'session':l1})
+def comment(request,id1,session):
+
+    mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="internet"
+            )
+
+    mycursor = mydb.cursor()
+    
+    sql = "select username,comment from comments "
+    
+    mycursor.execute(sql)
+    row=mycursor.fetchall()
+    r=[]
+    for i in row:
+        if(i[0]==id1):
+            r.append(i)
+    
+    l1=[]
+    l1.append(session)
+    l2=[]
+    l2.append(id1)
+    return render(request,'comments.html',context={'data':r,'session':l1,'uid':l2})
+def comment1(request,id1,session):
+
+    mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",
+            database="internet"
+            )
+
+    mycursor = mydb.cursor()
+    c=email=request.POST['com']
+    
+    sql = "insert  into comments (id,username,comment) values(%s,%s,%s)"
+    val = (id1,session,c)
+    mydb.commit()
+    mydb.close()
+    l1=[]
+    l1.append(session)
+    allimages = Hotel.objects.all()
+    
+    
+    
+    return render(request, 'show.html',context={'images':allimages,'session':l1})
+
+
+
+
     
 
 

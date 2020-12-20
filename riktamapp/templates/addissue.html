@@ -1,17 +1,128 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <title>Hotel_image</title> 
-</head> 
-<body> 
-    <h1>
-    {{session.0}}
-    </h1>
-    <form method = "post" enctype="multipart/form-data" action='/image_upload/{{session.0}}'> 
-        {% csrf_token %} 
-        {{ form.as_p }} 
-        <button type="submit">Upload</button> 
-    </form> 
-</body> 
-</html> 
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{% static 'css/addpost.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <section id="navbar">
+      <div class="container-fluid">
+        <div class="row nav">
+         
+          <div class="col-sm-6">
+          </div>
+
+          
+          
+          <div class="col-sm-2">
+            <div class="dropdown">
+              <div class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+                <span><i class="fas fa-user-alt"></i></span> {{username}}
+              </div>
+              <div class="dropdown-menu ">
+                <a class="dropdown-item downlist" href="/eyebook/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="row navhead">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2 text-center">
+          <a href="/my/{{session.0}}">My Posts</a>
+          <div class="line">
+
+          </div>
+        </div>
+        
+        <div class="col-sm-2 text-center">
+          <a href="/image_upload/{{session.0}}">Add issue</a>
+        </div>
+        
+
+      </div>
+
+      <section id="addpost">
+        <h3>Create Post </h3>
+        <form class="" enctype="multipart/form-data" method="post" action='/image_upload/{{session.0}}'>
+          {% csrf_token %}
+          <!-- <input type="text" name="" value="" placeholder="Enter Some text here ..."> -->
+         username:{{form.username}}
+          <br><br>
+          location:{{form.location}}
+          image:{{form.hotel_Main_Img}}
+          <!-- &nbsp;&nbsp; -->
+          <!-- <button type="submit" name="button" formaction="/eyebook/upload"><i class="fas fa-upload"></i></button> -->
+          <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+          
+          &nbsp;&nbsp;&nbsp;&nbsp;
+          <button type="submit" name="button" >Submit</button>
+         
+        </form>
+      </section>
+    </div>
+
+   
+    <script type="text/javascript">
+
+    const inpFile =  document.getElementById('post_img');
+    const previewImage = document.getElementById('imgd');
+
+
+    inpFile.addEventListener("change",function(){
+      const file = this.files[0];
+      console.log(file);
+
+
+        const reader = new FileReader();
+
+        reader.addEventListener("load",function(){
+          console.log("shubham");
+          console.log(this);
+
+          console.log(previewImage);
+          previewImage.setAttribute("src",this.result);
+          // previewImage.src = this.result;
+        });
+        reader.readAsDataURL(file);
+    });
+    // console.log("this is input file ",inpFile);
+    //this is for click on preview
+    document.getElementById("prev_btn").addEventListener('click',
+    function(){
+      var post_text = document.getElementById('post_text').value;
+      document.getElementById('p1').innerHTML = post_text;
+      // var post_img = document.getElementById('post_img').value;
+      console.log(post_text);
+
+      // var fullPath = document.getElementById("img1").src;
+      // var filename = post_img.replace(/^.*[\\\/]/, '');
+      // console.log(filename);
+      // document.getElementById('imgd').src = "../../media/"+filename;
+     document.querySelector('.prev').style.display = 'grid';
+    });
+
+//when user click on cancle button
+    document.querySelector('#cross').addEventListener('click',
+  function(){
+    document.querySelector('.prev').style.display = 'none';
+  });
+
+    </script>
+
+  </body>
+
+</html>

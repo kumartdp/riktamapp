@@ -1,69 +1,189 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Django Display Images</title>
-  <meta charset="utf-8">
-  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
-</head>
-<body>
-<div class="container">
-    <a href="/my/{{session.0}}">my posts</a>
-    <h1>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>allissues</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <section id="navbar">
+      <div class="container-fluid">
+        <div class="row nav">
+          
+          <div class="col-sm-6">
+          </div>
+
+          <div class="col-sm-1 top_link">
+            <a href="#">About</a>
+          </div>
+          <div class="col-sm-1 top_link">
+            <a href="#">Help</a>
+          </div>
+          <div class="col-sm-2">
+            <div class="dropdown">
+              <div class="btn btn-light dropdown-toggle" data-toggle="dropdown">
+                <span><i class="fas fa-user-alt"></i></span><span id="login_user_name">{{username}}</span>
+              </div>
+              <div class="dropdown-menu ">
+                <a class="dropdown-item downlist" href="/eyebook/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="row navhead">
+        <div class="col-sm-1">
+
+        </div>
+        <div class="col-sm-2 text-center">
+          <a href="/image_upload/{{session.0}}">All</a>
+          <div class="line">
+
+          </div>
+        </div>
+        <div class="col-sm-2 text-center">
+          <a href="/my/{{session.0}}">My Posts</a>
+        </div>
+        <div class="col-sm-2 text-center">
+          <a href="/image_upload/{{session.0}}">Add issue</a>
+        </div>
         
-        </h1>
-<a href="/image_upload/{{session.0}}">add issue</a>	
-<table class="table table-striped">
-    <thead>
-      <tr>
-		<th>location</th>
-        <th>Image</th>
-        <th>
-            edit
-        </th>
-        <th>
-            delete
-        </th>
-        <th>
-            upvote
 
-        </th>
-        <th>
-            votes
+      </div>
+      <section id="all_posts">
 
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-	{% for img in images %}  
-      <tr>
-         
-        <td>{{img.location}}</td>
-        {% with name=img.hotel_Main_Img %}
-
-       
-        <td><img src="/media/jpg;base64,{{name}}" alt="text" width="100"></td>
-        <td>
-            <a href="/edit/{{img.id}}/{{session.0}}" class="btn btn-info">edit</a>
-        </td>
-        <td>
-            <a href="/delete/{{img.id}}" class="btn btn-danger">delete</a>
-        </td>
-        <td>
-            <a href="/upvote/{{img.id}}/{{session.0}}" class="btn btn-success">upvote</a>
-            
+        {% for img in images %}  
+        <div class="row post_area">
+          <div class="col-sm-2">
+          </div>
+          <div class="col-sm-6 post" >
+              <div style="margin:10px auto;">
+                <i class="fas fa-user-circle" style="font-size: 35px;"></i><span id="user">{{img.location}}</span>
+                <span style="margin-left:280px; font-size:14px;">{{p.time}}</span>
+              </div>
+              <div>
                 
-            
-        </td>
-        <td>
-        <h1> {{img.count}} </h1>
-        </td>
-      </tr>
-      {% endwith %}
-	  {% endfor %} 
-	</tbody>
-</table>
+                <img src="/media/images/photo.jpg" alt="" class="responsive">
+              </div>
+              <div>
+                <a href="/upvote/{{img.id}}/{{session.0}}" class="btn btn-success">upvote</a>
+              <h1> {{img.count}} </h1>
 
-</div>
-</body>
+                <span><i class="far fa-comment"></i> <a href="/comment/{{img.id}}/{{session.0}}"> Comment</a></span>
+              </div>
+          </div>
+          <div class="col-sm-4">
+
+          </div>
+        </div>
+        {% endfor %}
+      </section>
+    </div>
+
+    {% csrf_token %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+         $(".l_btn").click(function(){
+           console.log("Button clicked");
+           p_id = $(this).attr('id')
+           console.log(p_id);
+           // console.log($(".shu").attr('id'));
+           p_l_username = $("#login_user_name").text();
+           console.log(p_l_username);
+
+           if($('#icon'+p_id).css('color')=='rgb(0, 0, 0)')
+           {
+           $.ajax(
+             {
+               type:"GET",
+               url: "/eyebook/likepost",
+               data:{
+                  post_id: p_id ,
+                  post_like_name : p_l_username
+                },
+                success: function( data )
+                {
+                  console.log(data);
+                  console.log("Successfully liked");
+                  console.log($('#icon'+data).css('color'));
+                  // $('#icon'+data).css({'color':'blue'});
+                  // console.log($('#icon'+data).css('color'));
+                  // $('#impr')
+                  if($('#icon'+data).css('color')=='rgb(0, 0, 0)'){
+                    var el = parseInt($('#impr'+data).text());
+                    $('#impr'+data).text(el+1);
+                    $('#icon'+data).css({'color':'blue'});
+                    console.log($('#icon'+data).css('color'));
+                  }
+
+
+                }
+              });
+            }
+
+           // $.ajax({
+           //   type: "POST",
+           //   url: "/eyebook/like",
+             // headers: {
+             //   'Csrf-Token': '@play.filters.csrf.CSRF.getToken.map(_.value)'
+             // },
+             // data : {
+             //   'post_id': p_id,
+             //    'like_username':  p_l_username,
+             //    'csrfmiddlewaretoken': '{{ csrf_token }}',
+             // }
+             // data: "{post_id : " + p_id + "," + "like_username : " + p_l_username +"}",
+             //
+             //
+             // success: function(result){
+             //   console.log(result);
+             //   // alert(result.d);
+             //   console.log("successfully like the post");
+           //   }
+           // });
+         });
+       });
+
+       //CSRF code
+//        function getCookie(name) {
+//     var cookieValue = null;
+//     if (document.cookie && document.cookie !== '') {
+//         var cookies = document.cookie.split(';');
+//         for (var i = 0; i < cookies.length; i++) {
+//             var cookie = cookies[i].trim();
+//             // Does this cookie string begin with the name we want?
+//             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+//                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+//                 break;
+//             }
+//         }
+//     }
+//     return cookieValue;
+// }
+// var csrftoken = getCookie('csrftoken');
+//
+// function csrfSafeMethod(method) {
+//     // these HTTP methods do not require CSRF protection
+//     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+// }
+// $.ajaxSetup({
+//     beforeSend: function(xhr, settings) {
+//         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+//             xhr.setRequestHeader("X-CSRFToken", csrftoken);
+//         }
+//     }
+// });
+       // var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+    </script>
+  </body>
 </html>

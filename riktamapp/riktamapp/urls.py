@@ -44,6 +44,15 @@ urlpatterns = [
     path('delete/<int:id1>',views.delete),
     path('edit/<int:id1>/<str:session>',views.edit),
     path('upvote/<int:id1>/<str:session>',views.upvote),
+    path('comment/<int:id1>/<str:session>',views.comment),
+    path('comment1/<int:id1>/<str:session>',views.comment1),
+    path('successadmin',views.successadmin),
+    path('published',views.published),
+    path('resolved',views.resolved)
+    path('publish/<int:id1>',views.publish),
+    path('resolve/<int:id1>',views.resolve),
+
+    
     
     
 

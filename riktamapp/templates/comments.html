@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Django Display Images</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+</head>
+<body>
+<div class="container">
+    <a href="/my/{{session.0}}">my posts</a>
+    
+<a href="/image_upload/{{session.0}}">add issue</a>	
+
+{% for d in data %}  
+<h1>{{d.username}}</h1>:<h1>{{d.comment}}</h1>
+{% endfor %}
+
+<h1>{{uid.0}}uhbuhbi
+    </h1>
+<form method="post" action="/comment1/{{uid.0}}/{{session.0}}">
+{% csrf_token %}
+		<h2>addcomment</h2>
+        <div class="form-group">
+			<div class="row">
+                <div class="col">{{session.0}}:<input type="text" class="form-control" name="com" placeholder="First Name" required="required">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-lg btn-block">post comment</button>
+                    </div>
+                </div>
+			
+			</div>        	
+        </div>
+</form>
+
+
+</div>
+</body>
+</html>
+

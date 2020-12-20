@@ -46,19 +46,16 @@
 
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/image_upload/{{session.0}}">All</a>
-          <div class="line"></div>
-          
+          <a href="/successadmin">no actiontaken</a>
+          <div class="line">
 
           </div>
-        
-        <div class="col-sm-2 text-center">
-          <a href="/my/{{session.0}}">My Posts</a>
-        
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/image_upload/{{session.0}}">Add issue</a>
+          <a href="/published">published</a>
         </div>
+        <div class="col-sm-2 text-center">
+          <a href="/resolved">resolved</a>
         </div>
         
 
@@ -79,15 +76,11 @@
                 <img src="/media/images/photo.jpg" alt="" class="responsive">
               </div>
               <div>
-                <a href="/upvote/{{img.id}}/{{session.0}}" class="btn btn-success">upvote</a><b>{{img.count}} </b>
+                <span>upvote count</span>
+              <h1> {{img.count}} </h1>
+              <a href="/publish/{{img.id}}" class="btn btn-success">delete</a>
+
                 
-                   <a href="/edit/{{img.id}}/{{session.0}}" class="btn btn-info">edit</a>
-            
-            
-                    <a href="/delete/{{img.id}}" class="btn btn-danger">delete</a>
-
-
-                <span><i class="far fa-comment"></i> <a href="/comment/{{img.id}}/{{session.0}}"> Comment</a></span>
               </div>
           </div>
           <div class="col-sm-4">

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Django Display Images</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
+</head>
+<body>
+<div class="container">
+    <a href="/home/{{session.0}}">home</a>
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+		<th>Title</th>
+		<th>Image</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for img in images %}  
+      <tr>
+        <td>{{img.name}}</td>
+       
+        <td><img src="media/images/sign.jpg" width="120"/></td>
+      </tr>
+	  {% endfor %} 
+	</tbody>
+</table>
+	
+</div>
+</body>
+</html>
