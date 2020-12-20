@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body style="background-color:rgb(245, 220, 232);">
     <section id="navbar">
       <div class="container-fluid">
         <div class="row nav">
@@ -32,7 +32,7 @@
                 <span><i class="fas fa-user-alt"></i></span><span id="login_user_name">{{username}}</span>
               </div>
               <div class="dropdown-menu ">
-                <a class="dropdown-item downlist" href="/eyebook/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
+                <a class="dropdown-item downlist" href="/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
               </div>
             </div>
           </div>
@@ -46,16 +46,16 @@
 
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/successadmin">no actiontaken</a>
+          <a href="/successadmin" class="btn btn-info">no actiontaken</a>
           <div class="line">
 
           </div>
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/published">published</a>
+          <a href="/published" class="btn btn-info">published</a>
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/resolved">resolved</a>
+          <a href="/resolved" class="btn btn-info">resolved</a>
         </div>
         
 
@@ -68,17 +68,23 @@
           </div>
           <div class="col-sm-6 post" >
               <div style="margin:10px auto;">
-                <i class="fas fa-user-circle" style="font-size: 35px;"></i><span id="user">{{img.location}}</span>
+                <i  style="font-size: 35px;"></i><span id="user">{{img.location}}</span>
                 <span style="margin-left:280px; font-size:14px;">{{p.time}}</span>
               </div>
               <div>
+                  {{img.issuetitle}}
                 
-                <img src="/media/images/photo.jpg" alt="" class="responsive">
+               
               </div>
+              <div>
+                
+                <img src="/media/images/{{img.imgurl}}" alt="" class="responsive">
+              </div>
+              
               <div>
                 <span>upvote count</span>
               <h1> {{img.count}} </h1>
-              <a href="/resolve/{{img.id}}" class="btn btn-success">delete</a>
+              <a href="/resolve/{{img.id}}" class="btn btn-success">Resolved</a>
 
                 
               </div>

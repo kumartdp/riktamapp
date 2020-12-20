@@ -28,11 +28,13 @@ from . import views
 urlpatterns = [
    
 
-    path('',views.login1,name='home'),
-    path('login1',views.login1,name='home'),
+    path('',views.login,name='home'),
+    
     path('login',views.login,name='home'),
    
     path('register',views.register,name="register"),
+    path('logout',views.logout),
+    
 
     
     
@@ -48,7 +50,7 @@ urlpatterns = [
     path('comment1/<int:id1>/<str:session>',views.comment1),
     path('successadmin',views.successadmin),
     path('published',views.published),
-    path('resolved',views.resolved)
+    path('resolved',views.resolved),
     path('publish/<int:id1>',views.publish),
     path('resolve/<int:id1>',views.resolve),
 

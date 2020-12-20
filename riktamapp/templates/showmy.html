@@ -6,13 +6,14 @@
     <title>allissues</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap.min.css" %}" />
     <link href="https://fonts.googleapis.com/css?family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body style="background-color:rgb(245, 220, 232);">
     <section id="navbar">
       <div class="container-fluid">
         <div class="row nav">
@@ -32,7 +33,7 @@
                 <span><i class="fas fa-user-alt"></i></span><span id="login_user_name">{{username}}</span>
               </div>
               <div class="dropdown-menu ">
-                <a class="dropdown-item downlist" href="/eyebook/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
+                <a class="dropdown-item downlist" href="/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
               </div>
             </div>
           </div>
@@ -46,18 +47,18 @@
 
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/image_upload/{{session.0}}">All</a>
+          <a href="/success/{{session.0}}" class="btn btn-info">All</a>
           <div class="line"></div>
           
 
           </div>
         
         <div class="col-sm-2 text-center">
-          <a href="/my/{{session.0}}">My Posts</a>
+          <a href="/my/{{session.0}}" class="btn btn-info">My Posts</a>
         
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/image_upload/{{session.0}}">Add issue</a>
+          <a href="/image_upload/{{session.0}}" class="btn btn-info">Add issue</a>
         </div>
         </div>
         
@@ -71,12 +72,17 @@
           </div>
           <div class="col-sm-6 post" >
               <div style="margin:10px auto;">
-                <i class="fas fa-user-circle" style="font-size: 35px;"></i><span id="user">{{img.location}}</span>
+                <i  style="font-size: 35px;"></i><span id="user">{{img.location}}</span>
                 <span style="margin-left:280px; font-size:14px;">{{p.time}}</span>
               </div>
               <div>
+              <h4><b> {{img.issuetitle}} </b> </h4>
+
+              </div>
+
+              <div>
                 
-                <img src="/media/images/photo.jpg" alt="" class="responsive">
+                <img src="/media/images/{{img.imgurl}}" alt="" class="responsive">
               </div>
               <div>
                 <a href="/upvote/{{img.id}}/{{session.0}}" class="btn btn-success">upvote</a><b>{{img.count}} </b>
@@ -85,6 +91,7 @@
             
             
                     <a href="/delete/{{img.id}}" class="btn btn-danger">delete</a>
+                    <span>{{img.status}} </span>
 
 
                 <span><i class="far fa-comment"></i> <a href="/comment/{{img.id}}/{{session.0}}"> Comment</a></span>

@@ -12,7 +12,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
-  <body>
+  <body style="background-color:rgb(245, 220, 232);">
     <section id="navbar">
       <div class="container-fluid">
         <div class="row nav">
@@ -28,7 +28,7 @@
                 <span><i class="fas fa-user-alt"></i></span> {{username}}
               </div>
               <div class="dropdown-menu ">
-                <a class="dropdown-item downlist" href="/eyebook/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
+                <a class="dropdown-item downlist" href="/logout"><span><i class="fa fa-sign-out-alt" aria-hidden="true"></span></i>Logout</a>
               </div>
             </div>
           </div>
@@ -42,14 +42,14 @@
 
         </div>
         <div class="col-sm-2 text-center">
-          <a href="/my/{{session.0}}">My Posts</a>
+          <a href="/my/{{session.0}}" class="btn btn-info">My Posts</a>
           <div class="line">
 
           </div>
         </div>
         
         <div class="col-sm-2 text-center">
-          <a href="/image_upload/{{session.0}}">Add issue</a>
+          <a href="/image_upload/{{session.0}}" class="btn btn-info">Add issue</a>
         </div>
         
 
@@ -60,10 +60,14 @@
         <form class="" enctype="multipart/form-data" method="post" action='/image_upload/{{session.0}}'>
           {% csrf_token %}
           <!-- <input type="text" name="" value="" placeholder="Enter Some text here ..."> -->
-         username:{{form.username}}
+         username:<input type="text" name="uname">
+
           <br><br>
-          location:{{form.location}}
-          image:{{form.hotel_Main_Img}}
+          location:<input type="text" name="location">
+          issuetitle:<input type="text" name="issuetitle">
+          image:<input type="file" name="issueimage" id="fileToUpload">
+
+
           <!-- &nbsp;&nbsp; -->
           <!-- <button type="submit" name="button" formaction="/eyebook/upload"><i class="fas fa-upload"></i></button> -->
           <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
